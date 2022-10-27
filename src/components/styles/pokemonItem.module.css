@@ -1,0 +1,12 @@
+.pokemon {
+    margin-top: 15px;
+    padding: 10px;
+    width: 400px;
+    border-radius: 10px ;
+    background-color: rgb(59, 179, 195);
+    color: rgb(163, 102, 125);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+}
