@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Pokemon_hook/static/css/main.bc4bbdba.css",
+    "main.js": "/Pokemon_hook/static/js/main.b2300421.js",
+    "index.html": "/Pokemon_hook/index.html",
+    "main.bc4bbdba.css.map": "/Pokemon_hook/static/css/main.bc4bbdba.css.map",
+    "main.b2300421.js.map": "/Pokemon_hook/static/js/main.b2300421.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc4bbdba.css",
+    "static/js/main.b2300421.js"
+  ]
+}
