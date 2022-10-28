@@ -3,7 +3,6 @@ import axios from 'axios';
 import './App.css';
 import PokemonList from './components/PokemonList';
 import PokemonDetails from './components/PokemonDetails';
-import FuncRefExample from './components/Refexample/FuncRefExample';
 
 
 
@@ -18,8 +17,8 @@ const App=()=>{
 const [pokemons, setPokemons]=useState(null);
 const [pokemonId, setPokemonId]=useState(null);
 const [detailsPokemon, setDetailsPokemon]=useState(null);
-// const [NextUrl, setNextUrl]=useState(null);
-// const [previousUrl, setPreviousUrl]=useState(null);
+const [nextUrl, setNextUrl]=useState(null);
+const [previousUrl, setPreviousUrl]=useState(null);
 
 
     // componentDidMount() {
@@ -38,7 +37,8 @@ const [detailsPokemon, setDetailsPokemon]=useState(null);
         .then((response) => {
             const nextUrl = response.data.next;
             const pokemons = response.data.results;
-            setPokemons( pokemons, nextUrl );
+            setPokemons(pokemons); // для каждого состояния у нас своя управляющая функция
+            setNextUrl(nextUrl)
         });
       }, []);
 
@@ -84,23 +84,27 @@ useEffect(() => {
     };
 
     const backPokemons = () => {
-        if (this.state.previousUrl !== null) {
-            axios.get(`${this.state.previousUrl}`).then((response) => {
+        if (previousUrl !== null) {
+            axios.get(`${previousUrl}`).then((response) => {
                 const nextUrl = response.data.next;
                 const previousUrl = response.data.previous;
                 const pokemons = response.data.results;
-                setDetailsPokemon( pokemons, nextUrl, previousUrl );
+                setPokemons(pokemons);  // здесь мы устанавливаем не setDetailsPokemon а setPokemons - потому что мы работаем с основным списком
+				setNextUrl(nextUrl);
+				setPreviousUrl(previousUrl);
             });
         }
     };
 
     const nextPokemons = () => {
-        axios.get(`${this.state.nextUrl}`).then((response) => {
+        axios.get(`${nextUrl}`).then((response) => {
         // axios.get(`${nextUrl}`).then((response) => {
             const nextUrl = response.data.next;
             const previousUrl = response.data.previous;
             const pokemons = response.data.results;
-            setDetailsPokemon( pokemons, nextUrl, previousUrl );
+            setPokemons(pokemons);  // здесь мы устанавливаем не setDetailsPokemon а setPokemons - потому что мы работаем с основным списком
+			setNextUrl(nextUrl); // для каждого состояния у нас своя управляющая функция
+			setPreviousUrl(previousUrl);
         });
     };
 
@@ -120,7 +124,6 @@ useEffect(() => {
                         <PokemonDetails  detailsPokemon ={ detailsPokemon }/>
                     )}
                 </div>
-                <FuncRefExample />
                 <div className="btn-block">
                     <button className='btn-block_relay' onClick={backPokemons}>Back</button>
                     <button className='btn-block_relay' onClick={nextPokemons}>Next</button>
